@@ -1,0 +1,68 @@
+﻿@model AppRestaurantesEF.Models.PratoViewModel
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h1>Criar Prato</h1>
+
+<hr />
+
+@using (Html.BeginForm("Create", "Pratos",
+    FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+        
+        <div class="form-group">
+            @Html.Label("RestauranteId", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("RestauranteId")
+            </div>
+        </div>
+        
+        <div class="form-group">
+            @Html.LabelFor(m => m.Nome, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.Nome, new { @class = "form-control", @placeholder = "Nome do prato" })
+                @Html.ValidationMessageFor(m => m.Nome, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.Ingredientes, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.Ingredientes, new { @class = "form-control", @placeholder = "Ingredientes" })
+                @Html.ValidationMessageFor(m => m.Ingredientes, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.Quantidade, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.Quantidade, new { @class = "form-control", @placeholder = "Quantidade em gramas" })
+                @Html.ValidationMessageFor(m => m.Quantidade, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.ImageUpload, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.ImageUpload, new { type = "file", @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.ImageUpload, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Cadastrar prato" class="btn btn-success" />
+                @Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-danger" })
+            </div>
+        </div>
+    </div>
+}
+<div>
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+

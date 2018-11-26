@@ -1,0 +1,94 @@
+﻿@model IEnumerable<AppRestaurantesEF.Models.Prato>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Pratos Cadastrados</h2>
+
+<hr />
+
+@{
+    if (this.User.IsInRole("Gerente"))
+    {
+        <p>
+            @Html.ActionLink("Incluir novo prato", "Create", "Pratos", new { RestauranteId = ViewBag.RestauranteId }, null)
+        </p>
+    }
+}
+
+
+<table class="table">
+    <tr>
+
+        <th>
+            @Html.DisplayNameFor(model => model.Nome)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Ingredientes)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Quantidade)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Imagem)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Ingredientes)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Quantidade)
+            </td>
+
+            @if (item.Imagem != null)
+            {
+                <td>
+                    @{
+                        var base64 = Convert.ToBase64String(item.Imagem);
+                        var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                    }
+                    <img src='@imgSrc' style="max-width:100px; max-height:100px;" />
+                </td>
+            }
+
+            @{ 
+                if (this.User.IsInRole("Gerente") || this.User.IsInRole("Colaborador"))
+                {
+                    <td>
+                        @Html.ActionLink("Editar", "Edit", new { id = item.ID }) |
+                        @Html.ActionLink("Detalhes", "Details", new { id = item.ID }) |
+                        @Html.ActionLink("Deletar", "Delete", new { id = item.ID })
+                    </td>
+                }
+
+                if (this.User.IsInRole("Cliente"))
+                {
+                    <td>
+                        @Html.ActionLink("Reservar", "Create", "Reservas", new { PratoId = item.ID }, null) |
+                        @Html.ActionLink("Detalhes", "Details", new { id = item.ID }) |
+                        @Html.ActionLink("Avaliar", "Avaliar", new { id = item.ID })
+                    </td>
+                }
+            }
+
+            
+        </tr>
+    }
+
+</table>
+
+<hr />
+
+<p>
+    <a href="@Request.UrlReferrer">Voltar</a>
+</p>

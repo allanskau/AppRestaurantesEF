@@ -1,0 +1,80 @@
+﻿@model AppRestaurantesEF.Models.Restaurante
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Excluir restaurante</h2>
+
+<hr />
+
+<h3>Você tem certeza que deseja excluir este restaurante?</h3>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Nome)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EstiloGastronomico)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.EstiloGastronomico)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Endereco)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Endereco)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LinkFacebook)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.LinkFacebook)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Imagem)
+        </dt>
+        @if (Model.Imagem != null)
+        {
+            <dd>
+                @{
+                    var base64 = Convert.ToBase64String(Model.Imagem);
+                    var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                }
+                <img src='@imgSrc' style="max-width:100px; max-height:100px;" />
+            </dd>
+         }
+    </dl>    
+</div>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dd>
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-actions no-color">
+                    <input type="submit" value="Delete" class="btn btn-warning" />
+                </div>
+            }
+        </dd>
+    </dl>
+</div>
+
+<hr />
+
+<div>
+    @Html.ActionLink("Voltar", "Index")
+</div>

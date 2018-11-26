@@ -1,0 +1,71 @@
+﻿@model AppRestaurantesEF.Models.Reserva
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Excluir Reserva</h2>
+
+<h3>Tem certezaque deseja excluir esta reserva? Existe a possibilidade de não conseguir este horário novamente!</h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.Label("Cliente")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IdCliente)
+        </dd>
+
+        <dt>
+            @Html.Label("Restaurante")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IdRestaurante)
+        </dd>
+
+        <dt>
+            @Html.Label("Prato")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IdPrato)
+        </dd>
+
+        <dt>
+            @Html.Label("Data")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DataReserva)
+        </dd>
+
+        <dt>
+            @Html.Label("Hora")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HoraReserva)
+        </dd>
+
+        <dt>
+            @Html.Label("Quantidade")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Quantidade)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Excluir" class="btn btn-default" /> |
+            @Html.ActionLink("Voltar", "Index")
+        </div>
+    }
+</div>

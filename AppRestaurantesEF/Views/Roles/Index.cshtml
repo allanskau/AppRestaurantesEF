@@ -1,0 +1,28 @@
+﻿@model IEnumerable<Microsoft.AspNet.Identity.EntityFramework.IdentityRole>
+
+@{
+    ViewBag.Title = "Index";
+}
+<h2>Perfis Cadastrados</h2>
+<p>
+    @Html.ActionLink("Criar Novo Perfil", "Create", "Roles")
+</p>
+<table class="table">
+    <tr>
+        <th>@Html.Label("Nome Perfil")</th>
+        <th>@Html.Label("Quantidade usuários")</th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@Html.DisplayFor(modelItem => item.Name)</td>
+            <td>@Html.DisplayFor(modelItem => item.Users.Count)</td>
+            
+            <td>
+                @Html.ActionLink("Editar", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Deletar", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    }
+</table>

@@ -1,0 +1,158 @@
+﻿@model AppRestaurantesEF.Models.Restaurante
+
+@{
+    ViewBag.Title = "Details";
+}
+
+@*<!-- ******************* Botao curtir - plugin do facebook ******************* -->
+<div id="fb-root"></div>
+<script>
+    (function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = 'https://connect.facebook.net/pt_BR/sdk.js#xfbml=1&version=v3.2';
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+</script>
+<!-- ******************* Botao curtir - plugin do facebook ******************* -->
+<!-- ******************** Comentarios - plugin do facebook ******************* -->
+<div id="fb-root"></div>
+<script>
+    (function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = 'https://connect.facebook.net/pt_BR/sdk.js#xfbml=1&version=v3.2';
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+</script>
+<!-- ******************** Comentarios - plugin do facebook ******************* -->*@
+
+
+<h2>Detalhes do restaurante</h2>
+
+<hr />
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nome)
+        </dd>
+
+        <dt>
+            @Html.Label("Estilo Gastronômico")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EstiloGastronomico)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Endereco)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Endereco)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LinkFacebook)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LinkFacebook)
+        </dd>
+
+        <dt>
+            @Html.Label("Número de avaliações")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NroAvaliacoes)
+        </dd>
+
+        <dt>
+            @Html.Label("Nota")
+        </dt>
+
+        <dd>
+            <!-- Verificações para evitar divisão por zero, eliminando erros do sistema -->
+            @{
+                decimal media = 0;
+                if (@Model.SomaDasNotas == 0 || @Model.NroAvaliacoes == 0)
+                {
+                    media = 0;
+                }
+                else
+                {
+                    media = @Model.SomaDasNotas / @Model.NroAvaliacoes;
+                    media = Math.Round(media, 2);
+                }
+            }
+            <!-- imprime resultado da divisao -->
+            @media
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Imagem)
+        </dt>
+
+        @if (Model.Imagem != null)
+        {
+            <dd>
+                @{
+                    var base64 = Convert.ToBase64String(Model.Imagem);
+                    var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                }
+                <img src='@imgSrc' style="max-width:100px; max-height:100px;" />
+            </dd>
+        }
+
+    </dl>
+</div>
+
+@{
+    if (this.User.IsInRole("Cliente"))
+    {
+        <p>
+            @Html.ActionLink("Voltar", "Index")
+        </p>
+    }
+    if (this.User.IsInRole("Gerente"))
+    {
+        <p>
+            @Html.ActionLink("Editar", "Edit", new { id = Model.ID }) |
+            @Html.ActionLink("Voltar", "Index")
+        </p>
+    }
+}
+
+
+
+@{
+    // variavel para utilizar a string com link da pagina do facebook
+    var linkFace = Model.LinkFacebook;
+}
+
+@{
+    if (this.Context.User.IsInRole("Cliente"))
+    {
+        
+        @*<!-- ******************* Botao curtir - plugin do facebook ******************* -->
+        <p>
+            <div class="fb-like" data-href=@linkFace data-layout="standard" data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>
+        </p>
+        <!-- ******************* Botao curtir - plugin do facebook ******************* -->
+        <!-- ******************** Comentarios - plugin do facebook ******************* -->
+        <div class="fb-comments" data-href=@linkFace data-numposts="5"></div>
+        <!-- ******************** Comentarios - plugin do facebook ******************* -->*@
+
+    }
+}
+

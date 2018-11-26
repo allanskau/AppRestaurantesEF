@@ -1,0 +1,71 @@
+﻿@model AppRestaurantesEF.Models.Prato
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Excluir prato</h2>
+
+<hr />
+
+<h3>Você tem certeza que deseja excluir este prato?</h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Nome)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Ingredientes)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Ingredientes)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Quantidade)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Quantidade)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Imagem)
+        </dt>
+        @if (Model.Imagem != null)
+        {
+            <dd>
+                @{
+                    var base64 = Convert.ToBase64String(Model.Imagem);
+                    var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                }
+                <img src='@imgSrc' style="max-width:100px; max-height:100px;" />
+            </dd>
+        }
+    </dl>    
+</div>
+
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dd>
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-actions no-color">
+                    <input type="submit" value="Delete" class="btn btn-warning" />
+                </div>
+            }
+        </dd>
+    </dl>
+</div>
+
+<div>
+     @Html.ActionLink("Voltar", "Index", new { RestauranteId = Model.RestauranteId })
+</div>

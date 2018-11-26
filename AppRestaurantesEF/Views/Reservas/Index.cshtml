@@ -1,0 +1,60 @@
+﻿@model IEnumerable<AppRestaurantesEF.Models.Reserva>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Reservas</h2>
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.Label("Cliente")
+        </th>
+        <th>
+            @Html.Label("Restaurante")
+        </th>
+        <th>
+            @Html.Label("Prato")
+        </th>
+        <th>
+            @Html.Label("Data da reserva")
+        </th>
+        <th>
+            @Html.Label("Hora da reserva")
+        </th>
+        <th>
+            @Html.Label("Quantidade")
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.NomeCliente)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NomeRestaurante)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NomePrato)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DataReserva)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.HoraReserva)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Quantidade)
+        </td>
+        <td>
+            @Html.ActionLink("Detalhes", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Deletar", "Delete", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>

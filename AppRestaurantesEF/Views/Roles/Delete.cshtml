@@ -1,0 +1,44 @@
+﻿@model Microsoft.AspNet.Identity.EntityFramework.IdentityRole
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Tem certeza que deseja excluir este perfil?</h3>
+<h4>Isso pode impactar em perdas de funcionalidade da aplicação!</h4>
+
+<hr />
+
+<div>
+    <h4>Perfil</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Id)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>      
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-warning" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

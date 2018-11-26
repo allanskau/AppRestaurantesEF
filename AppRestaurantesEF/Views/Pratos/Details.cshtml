@@ -1,0 +1,144 @@
+﻿@model AppRestaurantesEF.Models.Prato
+
+@{
+    ViewBag.Title = "Details";
+}
+
+
+    <!-- ******************* Botao curtir - plugin do facebook ******************* -->
+    <div id="fb-root"></div>
+    <script>
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = 'https://connect.facebook.net/pt_BR/sdk.js#xfbml=1&version=v3.2';
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script>
+    <!-- ******************* Botao curtir - plugin do facebook ******************* -->
+    <!-- ******************** Comentarios - plugin do facebook ******************* -->
+    <div id="fb-root"></div>
+    <script>
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = 'https://connect.facebook.net/pt_BR/sdk.js#xfbml=1&version=v3.2';
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script>
+    <!-- ******************** Comentarios - plugin do facebook ******************* -->
+
+
+
+<h2>Detalhes do prato</h2>
+
+<hr />
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Ingredientes)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Ingredientes)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Quantidade)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Quantidade)
+        </dd>
+
+        <dt>
+            @Html.Label("Número de avaliações")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NroAvaliacoes)
+
+        <dt>
+            @Html.Label("Nota")
+        </dt>
+
+        <dd>
+            <!-- Verificações para evitar divisão por zero, eliminando erros do sistema -->
+            @{
+                decimal media = 0;
+                if (@Model.SomaDasNotas == 0 || @Model.NroAvaliacoes == 0)
+                {
+                    media = 0;
+                }
+                else
+                {
+                    media = @Model.SomaDasNotas / @Model.NroAvaliacoes;
+                }
+            }
+            <!-- imprime resultado da divisao -->
+            @media
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Imagem)
+        </dt>
+
+        @if (Model.Imagem != null)
+        {
+            <dd>
+                @{
+                    var base64 = Convert.ToBase64String(Model.Imagem);
+                    var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                }
+                <img src='@imgSrc' style="max-width:100px; max-height:100px;" />
+            </dd>
+        }
+
+    </dl>
+</div>
+
+
+@{
+    // menu para selecao de clientes
+    if (this.Context.User.IsInRole("Cliente"))
+    {
+        <p>
+            @Html.ActionLink("Voltar", "Index", new { RestauranteId = Model.RestauranteId }) |
+            @Html.ActionLink("Solicitar Reserva", "Create", "Reservas", new { PratoId = Model.ID }, null)
+        </p>
+
+        <!-- ******************* Botao curtir - plugin do facebook ******************* -->
+        <p>
+            <div class="fb-like" data-href=@ViewBag.LinkFace data-layout="standard" data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>
+        </p>
+        <!-- ******************* Botao curtir - plugin do facebook ******************* -->
+        <!-- ******************** Comentarios - plugin do facebook ******************* -->
+        <div class="fb-comments" data-href=@ViewBag.LinkFace data-numposts="5"></div>
+        <!-- ******************** Comentarios - plugin do facebook ******************* -->
+
+
+    }
+    // menu para selecao de gerentes e administradores
+    else if (this.Context.User.IsInRole("Gerente") ||
+                this.Context.User.IsInRole("Colaborador") ||
+                this.Context.User.IsInRole("Admin"))
+    {
+        <p>
+            @Html.ActionLink("Editar", "Edit", new { id = Model.ID }) |
+            @Html.ActionLink("Voltar", "Index", new { RestauranteId = Model.RestauranteId }) |
+        </p>
+    }
+}
+

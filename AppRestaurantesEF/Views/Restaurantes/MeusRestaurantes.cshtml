@@ -1,0 +1,50 @@
+﻿@model IEnumerable<AppRestaurantesEF.Models.Restaurante>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Restaurantes Cadastrados</h2>
+
+<hr />
+
+<p>
+    @Html.ActionLink("Incluir Novo Restaurante", "Create", "Restaurantes")
+</p>
+
+<hr />
+
+<table class="table">
+    <tr>
+        <th>@Html.DisplayNameFor(model => model.Nome) </th>
+        <th>@Html.Label("Estilo Gastronômico")</th>
+        <th>@Html.DisplayNameFor(model => model.Endereco)</th>
+        <th>@Html.DisplayNameFor(model => model.Imagem)</th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@Html.DisplayFor(modelItem => item.Nome)</td>
+            <td>@Html.DisplayFor(modelItem => item.EstiloGastronomico)</td>
+            <td>@Html.DisplayFor(modelItem => item.Endereco)</td>
+            @if (item.Imagem != null)
+            {
+                <td>
+                    @{
+                        var base64 = Convert.ToBase64String(item.Imagem);
+                        var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                    }
+                    <img src='@imgSrc' style="max-width:100px; max-height:100px;" />
+                </td>
+            }
+                <td>
+                    @Html.ActionLink("Editar", "Edit", new { id = item.ID }) |
+                    @Html.ActionLink("Detalhes", "Details", new { id = item.ID }) |
+                    @Html.ActionLink("Deletar", "Delete", new { id = item.ID }) |
+                    @Html.ActionLink("Pratos", "Index", "Pratos", new { RestauranteId = item.ID }, null) |
+                    @Html.ActionLink("Reservas", "ReservasRestaurante", "Reservas", new { RestauranteId = item.ID }, null)
+                </td>
+        </tr>
+    }
+</table>
