@@ -9,7 +9,7 @@
 <hr />
 
 @{
-    if (this.User.IsInRole("Gerente"))
+    if (this.User.IsInRole("Gerente") || this.User.IsInRole("Colaborador"))
     {
         <p>
             @Html.ActionLink("Incluir novo prato", "Create", "Pratos", new { RestauranteId = ViewBag.RestauranteId }, null)
@@ -71,7 +71,7 @@
                     </td>
                 }
 
-                if (this.User.IsInRole("Cliente"))
+                else
                 {
                     <td>
                         @Html.ActionLink("Reservar", "Create", "Reservas", new { PratoId = item.ID }, null) |

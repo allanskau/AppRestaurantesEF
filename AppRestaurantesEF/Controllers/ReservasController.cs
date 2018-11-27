@@ -47,7 +47,21 @@ namespace AppRestaurantesEF.Controllers
             }
             else if (User.IsInRole("Colaborador"))
             {
-
+                var reservas = db.Reservas.ToList();
+                var restaurantes = restDb.Restaurantes.Where(r => r.Funcionarios.Contains(this.User.Identity.Name));
+                List<Reserva> reservasMeusRestaurantes = new List<Reserva>();
+                foreach (var reserva in reservas)
+                {
+                    foreach (var restaurante in restaurantes)
+                    {
+                        if (reserva.IdRestaurante == restaurante.ID)
+                        {
+                            reservasMeusRestaurantes.Add(reserva);
+                        }
+                    }
+                }
+                reservasMeusRestaurantes.OrderBy(c => c.NomeRestaurante);
+                return View(reservasMeusRestaurantes);
             }
             else if (User.IsInRole("Cliente"))
             {

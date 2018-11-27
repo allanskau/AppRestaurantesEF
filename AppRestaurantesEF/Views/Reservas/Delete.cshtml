@@ -65,7 +65,7 @@
 
         <div class="form-actions no-color">
             <input type="submit" value="Excluir" class="btn btn-default" /> |
-            @Html.ActionLink("Voltar", "Index")
+            <a href="@Request.UrlReferrer">Voltar</a>
         </div>
     }
 </div>

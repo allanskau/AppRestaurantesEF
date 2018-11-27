@@ -61,5 +61,5 @@
 </div>
 <p>
     @Html.ActionLink("Alterar", "Edit", new { id = Model.ID }) |
-    @Html.ActionLink("Voltar", "Index")
+    <a href="@Request.UrlReferrer">Voltar</a>
 </p>

@@ -1,0 +1,31 @@
+﻿@model IEnumerable<AppRestaurantesEF.Models.UsersInRoleViewModel>
+
+@{
+    ViewBag.Title = "Colaboradores";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="panel-body">
+    <table class="table">
+        <thead>
+            <tr>
+                <td><b>Usuário</b></td>
+                <td><b>Email</b></td>
+                <td><b>Perfis</b></td>
+            </tr>
+        </thead>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.Username</td>
+                <td>@user.Email</td>
+                <td>@user.Role</td>
+                <td>
+                    @Html.ActionLink("Atribuir perfil", "TelaAtribuicao", new { id = user.UserId }) |
+                    @Html.ActionLink("Remover Perfil", "TelaRemocao", new { id = user.UserId }) |
+                    @Html.ActionLink("Deletar", "Delete", new { id = user.UserId })
+                </td>
+            </tr>
+        }
+    </table>
+</div>

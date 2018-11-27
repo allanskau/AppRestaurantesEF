@@ -24,7 +24,7 @@ namespace AppRestaurantesEF.Controllers
         [Authorize(Roles = "Admin, Gerente, Colaborador, Cliente")]
         public ActionResult Index()
         {
-            if(this.User.IsInRole("Gerente"))
+            if(this.User.IsInRole("Gerente") || this.User.IsInRole("Colaborador"))
             {
                 return RedirectToAction("MeusRestaurantes");
             }

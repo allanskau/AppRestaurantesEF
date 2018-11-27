@@ -35,11 +35,11 @@
                         else if (this.Context.User.IsInRole("Gerente"))
                         {
                             <li>@Html.ActionLink("Meus Restaurantes", "MeusRestaurantes", "Restaurantes")</li>
-                            <li>@Html.ActionLink("Usuários", "RoleUsers", "Roles")</li>
-                            <li>@Html.ActionLink("Meus Colaboradores", "RoleUsers", "Role")</li>
+                            <li>@Html.ActionLink("Clientes", "Clientes", "Roles")</li>
+                            <li>@Html.ActionLink("Colaboradores", "Colaboradores", "Roles")</li>
                         }
 
-                        // menu para Gerente de restaurantes
+                        // menu para Colaborador de restaurantes
                         else if (this.User.IsInRole("Colaborador"))
                         {
                             <li>@Html.ActionLink("Meus Restaurantes", "MeusRestaurantes", "Restaurantes")</li>

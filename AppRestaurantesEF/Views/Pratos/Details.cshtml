@@ -111,8 +111,20 @@
 
 
 @{
+    
+    // menu para selecao de gerentes e administradores
+    if (this.Context.User.IsInRole("Gerente") ||
+                this.Context.User.IsInRole("Colaborador") ||
+                this.Context.User.IsInRole("Admin"))
+    {
+        <p>
+            @Html.ActionLink("Editar", "Edit", new { id = Model.ID }) |
+            @Html.ActionLink("Voltar", "Index", new { RestauranteId = Model.RestauranteId }) |
+        </p>
+    }
+
     // menu para selecao de clientes
-    if (this.Context.User.IsInRole("Cliente"))
+    else
     {
         <p>
             @Html.ActionLink("Voltar", "Index", new { RestauranteId = Model.RestauranteId }) |
@@ -129,16 +141,6 @@
         <!-- ******************** Comentarios - plugin do facebook ******************* -->
 
 
-    }
-    // menu para selecao de gerentes e administradores
-    else if (this.Context.User.IsInRole("Gerente") ||
-                this.Context.User.IsInRole("Colaborador") ||
-                this.Context.User.IsInRole("Admin"))
-    {
-        <p>
-            @Html.ActionLink("Editar", "Edit", new { id = Model.ID }) |
-            @Html.ActionLink("Voltar", "Index", new { RestauranteId = Model.RestauranteId }) |
-        </p>
     }
 }
 

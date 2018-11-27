@@ -38,13 +38,27 @@
                     <img src='@imgSrc' style="max-width:100px; max-height:100px;" />
                 </td>
             }
-                <td>
-                    @Html.ActionLink("Editar", "Edit", new { id = item.ID }) |
-                    @Html.ActionLink("Detalhes", "Details", new { id = item.ID }) |
-                    @Html.ActionLink("Deletar", "Delete", new { id = item.ID }) |
-                    @Html.ActionLink("Pratos", "Index", "Pratos", new { RestauranteId = item.ID }, null) |
-                    @Html.ActionLink("Reservas", "ReservasRestaurante", "Reservas", new { RestauranteId = item.ID }, null)
-                </td>
+                @{ 
+                    if (this.User.IsInRole("Gerente"))
+                    {
+                        <td>
+                            @Html.ActionLink("Editar", "Edit", new { id = item.ID }) |
+                            @Html.ActionLink("Detalhes", "Details", new { id = item.ID }) |
+                            @Html.ActionLink("Deletar", "Delete", new { id = item.ID }) |
+                            @Html.ActionLink("Pratos", "Index", "Pratos", new { RestauranteId = item.ID }, null) |
+                            @Html.ActionLink("Reservas", "ReservasRestaurante", "Reservas", new { RestauranteId = item.ID }, null)
+                        </td>
+                    }
+                    else if (this.User.IsInRole("Colaborador"))
+                    {
+                        <td>
+                            @Html.ActionLink("Detalhes", "Details", new { id = item.ID }) |
+                            @Html.ActionLink("Pratos", "Index", "Pratos", new { RestauranteId = item.ID }, null) |
+                            @Html.ActionLink("Reservas", "ReservasRestaurante", "Reservas", new { RestauranteId = item.ID }, null)
+                        </td>
+                    }
+                }
+                
         </tr>
     }
 </table>

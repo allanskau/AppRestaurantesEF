@@ -197,6 +197,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\MensagensController.cs" />
     <Compile Include="Controllers\PratosController.cs" />
     <Compile Include="Controllers\ReservasController.cs" />
     <Compile Include="Controllers\RestaurantesController.cs" />
@@ -207,6 +208,7 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Mensagem.cs" />
     <Compile Include="Models\Reserva.cs" />
     <Compile Include="Models\Prato.cs" />
     <Compile Include="Models\Restaurante.cs" />
@@ -344,6 +346,13 @@
     <Content Include="Views\Restaurantes\RestauranteJaAvaliado.cshtml" />
     <Content Include="Views\Pratos\Avaliar.cshtml" />
     <Content Include="Views\Pratos\PratoJaAvaliado.cshtml" />
+    <Content Include="Views\Roles\Clientes.cshtml" />
+    <Content Include="Views\Roles\Colaboradores.cshtml" />
+    <Content Include="Views\Mensagens\Create.cshtml" />
+    <Content Include="Views\Mensagens\Delete.cshtml" />
+    <Content Include="Views\Mensagens\Details.cshtml" />
+    <Content Include="Views\Mensagens\Edit.cshtml" />
+    <Content Include="Views\Mensagens\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
